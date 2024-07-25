@@ -1,0 +1,174 @@
+body {
+    margin: 0;
+    background-color: #211798;
+}
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #E81D26;
+    margin-bottom: 16px;
+    border-bottom: 10px outset rgba(0, 0, 0, 0.2);  
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);  
+    font-family: "Lilita One", sans-serif;
+    color: #FFCC03;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #3C56AA;
+}
+h1 { 
+    font-size: 64px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+header input {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+.load-button {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.load-button button {
+    padding: 8px 16px 8px 16px;
+    border-radius: 8px 8px;
+    background-color: white;
+    border: 3px solid black;
+    transition: all 200ms ease-in-out;
+}
+.load-button button:hover {
+    cursor: pointer;
+    transform: scale(1.05); 
+    box-shadow: 0px 0px 5px 1px black;
+}
+.poke-card {
+    width: 200px;
+    height: 160px;
+    
+    margin: 8px;
+    box-shadow: 2px 2px 5px 2px black;
+    border-radius: 8px;
+    transition: all 400ms ease-in-out;
+    display: flex;
+    flex-direction: column;    
+    color: white;
+}
+.poke-card:hover {
+    transform: scale(1.05);
+    box-shadow: 3px 3px 8px 2px black;
+    cursor: pointer;
+}
+.poke-id {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    margin-right: 16px;
+}
+.lower-section {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+.type {
+    padding: 4px 8px 4px 8px;
+    border-radius: 16px 16px;
+    box-shadow: 0 0 8px 0px rgba(50, 50, 50, 0.8);
+}
+.poke-img {
+    height: 100px;    
+}
+.name-span {
+    margin-left: 16px;
+    font-weight: bold;
+}
+.types {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:8px;
+}
+.large-background {
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.poke-card-open {
+    z-index: 2;
+    width: 80px;
+    height: 160px;
+    background-color: black;
+}
+
+.Normal {
+    background-color: #A8A77A;
+} 
+.Fire {
+    background-color: #EE8130;
+} 
+.Water {
+    background-color: #6390F0;
+} 
+.Electric {
+    background-color: #F7D02C;
+} 
+.Grass {
+    background-color: #7AC74C;
+} 
+.Ice {
+    background-color: #96D9D6;
+} 
+.Fighting {
+    background-color: #C22E28;
+} 
+.Poison {
+    background-color: #A33EA1;
+} 
+.Ground {
+    background-color: #E2BF65;
+} 
+.Flying {
+    background-color: #A98FF3;
+} 
+.Psychic {
+    background-color: #F95587;
+} 
+.Bug {
+    background-color: #A6B91A;
+} 
+.Rock {
+    background-color: #B6A136;
+} 
+.Ghost {
+    background-color: #735797;
+} 
+.Dragon {
+    background-color: #6F35FC;
+} 
+.Dark {
+    background-color: #705746;
+} 
+.Steel {
+    background-color: #B7B7CE;
+} 
+.Fairy {
+    background-color: #D685AD;
+} 
