@@ -1,35 +1,46 @@
 body {
     margin: 0;
     background-color: #211798;
+    font-family: "Lilita One", sans-serif;
+    letter-spacing: 2px;
+    text-shadow: 2px 1px 4px black;
 }
 header {
+    height: 120px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: #E81D26;
     margin-bottom: 16px;
     border-bottom: 10px outset rgba(0, 0, 0, 0.2);  
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);  
-    font-family: "Lilita One", sans-serif;
-    color: #FFCC03;
-    -webkit-text-stroke-width: 3px;
-    -webkit-text-stroke-color: #3C56AA;
-}
-h1 { 
-    font-size: 64px;
-    margin-top: 24px;
-    margin-bottom: 24px;
-}
-header input {
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2); 
+    position: sticky;
+    top: 0;
 }
 
+h1 img{ 
+    width: 240px;
+}
+header input {
+  padding-left: 25px;
+  background: url("./img/search.png") no-repeat left;
+  background-position: 8px;
+  background-size: 12px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);  
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 10px inset; 
+  border-radius: 40px 40px;
+  border-color: #E81D26;
+}
+header input:focus {
+    outline-style: none;
+}
 .content {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    
 }
 .load-button {
     display: flex;
@@ -59,7 +70,7 @@ header input {
     transition: all 400ms ease-in-out;
     display: flex;
     flex-direction: column;    
-    color: white;
+    color: rgba(255, 255, 255, 0.792);
 }
 .poke-card:hover {
     transform: scale(1.05);
@@ -84,7 +95,7 @@ header input {
 .type {
     padding: 4px 8px 4px 8px;
     border-radius: 16px 16px;
-    box-shadow: 0 0 8px 0px rgba(50, 50, 50, 0.8);
+    box-shadow: 0 0 6px 0px rgba(50, 50, 50, 0.8);
 }
 .poke-img {
     height: 100px;    
@@ -113,62 +124,261 @@ header input {
 }
 .poke-card-open {
     z-index: 2;
-    width: 80px;
-    height: 160px;
-    background-color: black;
+    width: 400px;
+    height: 560px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    letter-spacing: 0px;
+}
+.card-1st-half {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.card-1st-half img {
+    height: 240px;
+    padding-top: 40px;
+}
+.card-2nd-half {
+    height: 50%;
+}
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.button-left {
+    height: 40px;
+    width: 50%;
+    border: solid; 
+    border-width: 3px 2px 3px 2px;
+    border-color: black;
+    background-color: lightgray;
+}
+.button-right {
+    height: 40px;
+    width: 50%;
+    border: solid; 
+    border-width: 3px 2px 3px 2px;
+    border-color: black;
+    
+}
+.button-left:hover {
+    cursor:pointer;
+    background-color: lightgray;
+}
+.button-right:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-shadow: none;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    margin-left: 24px;
+}
+.stats-container {
+    display: flex; 
+}
+.stats-next-to-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+.stat-span {
+    width: 40px;
+    text-align: right;
+}
+.stats-width {
+    width: 136px;
+} 
+.stat-bar {
+    width: 160px;
+    height: 14px;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.full-bar {
+    width: 50%;
+    height: 14px;
+}
+.bar-percentage {
+    background-color: #BBDEFB;
+    height: 14px;
+}
+.arrows {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 8px;
+}
+.arrow-left {
+    height: 30px;
+    width: 30px;
+    padding: 8px;
+    background-color: lightgray;
+    border-radius: 50%;
+}   
+.arrow-right {
+    height: 30px;
+    width: 30px;
+    padding: 8px;
+    background-color: lightgray;
+    border-radius: 50%;
+    transition: all;
+}
+.arrow-left:hover {
+    cursor: pointer;
+    background-color: rgb(223, 223, 223);
+    transform: scale(1.05); 
+}
+.arrow-right:hover {
+    cursor: pointer;
+    background-color: rgb(223, 223, 223);
+    transform: scale(1.05); 
 }
 
 .Normal {
     background-color: #A8A77A;
 } 
+.Normal2 {
+    background-color: #B2B08A;
+} 
 .Fire {
     background-color: #EE8130;
+} 
+.Fire2 {
+    background-color: #F28D48;
 } 
 .Water {
     background-color: #6390F0;
 } 
+.Water2 {
+    background-color: #739BF3;
+} 
 .Electric {
     background-color: #F7D02C;
+} 
+.Electric2 {
+    background-color: #F9DC46;
 } 
 .Grass {
     background-color: #7AC74C;
 } 
+.Grass2 {
+    background-color: #86D35E;
+} 
 .Ice {
     background-color: #96D9D6;
+} 
+.Ice2 {
+    background-color: #A3E3E0;
 } 
 .Fighting {
     background-color: #C22E28;
 } 
+.Fighting2 {
+    background-color: #CB463E;
+} 
 .Poison {
     background-color: #A33EA1;
+} 
+.Poison2 {
+    background-color: #AF56AD;
 } 
 .Ground {
     background-color: #E2BF65;
 } 
+.Ground2 {
+    background-color: #E8CC7E;
+} 
 .Flying {
     background-color: #A98FF3;
+} 
+.Flying2 {
+    background-color: #B29BF5;
 } 
 .Psychic {
     background-color: #F95587;
 } 
+.Psychic2 {
+    background-color: #FB6C97;
+} 
 .Bug {
     background-color: #A6B91A;
+} 
+.Bug2 {
+    background-color: #B0C433;
 } 
 .Rock {
     background-color: #B6A136;
 } 
+.Rock2 {
+    background-color: #C1AD50;
+} 
 .Ghost {
     background-color: #735797;
+} 
+.Ghost2 {
+    background-color: #8265A8;
 } 
 .Dragon {
     background-color: #6F35FC;
 } 
+.Dragon2 {
+    background-color: #8148FF;
+} 
 .Dark {
     background-color: #705746;
+} 
+.Dark2 {
+    background-color: #7E6353;
 } 
 .Steel {
     background-color: #B7B7CE;
 } 
+.Steel2 {
+    background-color: #C4C4DB;
+} 
 .Fairy {
     background-color: #D685AD;
 } 
+.Fairy2 {
+    background-color: #E198B9;
+} 
+
+#loadingSpinner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.pokeball {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spin 1s linear infinite;
+    margin-top: -96px;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

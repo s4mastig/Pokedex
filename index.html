@@ -15,15 +15,19 @@
 
 <body onload="init()">
     <header>
-        <h1>Pokedex</h1>
-        <input id="search" type="text" placeholder="Search" onkeyup="filterPokedex()">
+        <h1><img class="pokedex-writing" src="./img/pokedex-writing.png" alt="Pokedex"></h1>
+        <input class="search" id="search" type="text" placeholder="Search" onkeyup="filterPokedex()">
     </header>
     <div class="content" id="content">
 
     </div>
+    <div id="loadingSpinner">
+        <img class="pokeball" src="./img/poke-ball.png">
+    </div>
     <div id="loadButton" class="load-button">
 
     </div>
+    
 </body>
 
 </html>
