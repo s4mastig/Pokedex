@@ -354,10 +354,14 @@ h1 img{
     background-color: #BBDEFB;
     height: 14px;
 }
+.arrow-container {
+    position: absolute;
+    width: 100%;
+    bottom: 16px;
+}
 .arrows {
     display: flex;
     justify-content: space-around;
-    margin-top: 24px;
 }
 .arrow-left {
     height: 30px;
@@ -507,7 +511,14 @@ h1 img{
     z-index: 1000;
     justify-content: center;
     align-items: center;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+#loadingSpinner div {
+    color: white;
+    margin-right: -12px;
 }
 
 .pokeball {
@@ -515,7 +526,6 @@ h1 img{
     height: 80px;
     position: relative;
     animation: spin 1s linear infinite;
-    margin-top: -96px;
 }
 
 @keyframes spin {

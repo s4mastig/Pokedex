@@ -7,16 +7,16 @@
     <title>Pokedex</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <script src="templates.js"></script>
+    <link rel="stylesheet" href="font.css">
+    <link rel="icon" type="image/x-icon" href="/img/poke-ball.png">
 
 </head>
 
 <body onload="init()">
     <header>
         <div class="header-content">
-            <h1><img class="pokedex-writing" src="./img/pokedex-writing.png" alt="Pokedex"></h1>
+            <h1><a href="./index.html"><img class="pokedex-writing" src="./img/pokedex-writing.png" alt="Pokedex"></a></h1>
             <input class="search" id="search" type="text" placeholder="Search" onkeyup="filterPokedex()">
         </div>
     </header>
@@ -26,6 +26,7 @@
     </div>
     <div id="loadingSpinner">
         <img class="pokeball" src="./img/poke-ball.png">
+        <div>Loading ...</div>
     </div>
     <div id="loadButton" class="load-button">
 

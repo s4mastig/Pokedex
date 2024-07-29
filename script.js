@@ -6,11 +6,14 @@ const limit = 20;
 async function init() {
     loadingSpinner.style.display = 'flex';
     await getDataPokemon();
+    delayedRenderAndHideSpinner();
+}
 
+function delayedRenderAndHideSpinner() {
     setTimeout(() => {
         renderPokemon();
         loadingSpinner.style.display = 'none';
-    }, 1500); 
+    }, 1500);
 }
 
 async function getDataPokemon() {
@@ -26,27 +29,36 @@ function renderPokemon() {
     for (let i = offset; i < offset + limit; i++) {
         let singlePokemon = pokemonData[i];
         let button = document.getElementById('loadButton');
-        
+
         if (!singlePokemon) {
             button.innerHTML = '';
             break;
         }
 
-        let content = document.getElementById('content');
-        let pokemonName = singlePokemon.name;
-        pokemonName = capitalizeFirstLetter(pokemonName);
-        let pokemonImg = singlePokemon.sprites.other["official-artwork"].front_default;
-        let types = singlePokemon.types;
-        let type1 = types[0].type.name;
-        type1 = capitalizeFirstLetter(type1);
-        let type2 = checkIfType2(types);
-        let type2Div = checkIfType2Div(type2);
-        let id = singlePokemon.id;
-
-        content.innerHTML += renderPokemonHtml(i, id, type1, pokemonName, type2Div, pokemonImg);
-        button.innerHTML = `<button onclick="loadMore()">Load more</button>`;
+        renderSinglePokemon(singlePokemon, i);
     }
     offset += limit;
+}
+
+function renderSinglePokemon(singlePokemon, i) {
+    let content = document.getElementById('content');
+    let pokemonName = singlePokemon.name;
+    pokemonName = capitalizeFirstLetter(pokemonName);
+    let pokemonImg = singlePokemon.sprites.other["official-artwork"].front_default;
+    let types = singlePokemon.types;
+    let type1 = types[0].type.name;
+    type1 = capitalizeFirstLetter(type1);
+    let type2 = checkIfType2(types);
+    let type2Div = checkIfType2Div(type2);
+    let id = singlePokemon.id;
+
+    content.innerHTML += renderPokemonHtml(i, id, type1, pokemonName, type2Div, pokemonImg);
+    updateLoadButton();
+}
+
+function updateLoadButton() {
+    let button = document.getElementById('loadButton');
+    button.innerHTML = `<button onclick="loadMore()">Load more</button>`;
 }
 
 function checkIfType2(types) {
@@ -83,58 +95,56 @@ function loadMore() {
     let loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'flex';
 
-    setTimeout(() => {
-        renderPokemon();
-        loadingSpinner.style.display = 'none';
-    }, 1500); 
+    delayedRenderAndHideSpinner();
 }
 
-async function filterPokedex() {
-
+function filterPokedex() {
     let search = document.getElementById('search').value.toLowerCase();
+    let content = document.getElementById('content');
+    let button = document.getElementById('loadButton');
+    button.innerHTML = '';
+    
+    if (search === '') {
+        resetPokedex(content);
+        return;
+    }
+    
+    if (search.length < 3) {
+        content.innerHTML = '';
+        return;
+    }
+    
     let filteredPokemon = pokemonData.filter(pokemon => pokemon.name.toLowerCase().startsWith(search));
-    content.innerHTML = '';
-    for (let i = 0; i < filteredPokemon.length; i++) {
+    displayFilteredPokemon(filteredPokemon, content);
+}
 
+function resetPokedex(content) {
+    loadingSpinner.style.display = 'flex';
+    offset = 0;
+    content.innerHTML = '';
+    delayedRenderAndHideSpinner();
+}
+
+function displayFilteredPokemon(filteredPokemon, content) {
+    content.innerHTML = '';
+    for (let i = 0; i < filteredPokemon.length && i < 10; i++) { 
         let singlePokemon = filteredPokemon[i];
         let originalIndex = pokemonData.indexOf(singlePokemon);
-        let content = document.getElementById('content');
-        let button = document.getElementById('loadButton');
-        let pokemonName = singlePokemon.name;
-        pokemonName = capitalizeFirstLetter(pokemonName);
+        let pokemonName = capitalizeFirstLetter(singlePokemon.name);
         let pokemonImg = singlePokemon.sprites.other["official-artwork"].front_default;
         let types = singlePokemon.types;
-        let type1 = types[0].type.name;
-        type1 = capitalizeFirstLetter(type1);
+        let type1 = capitalizeFirstLetter(types[0].type.name);
         let type2 = checkIfType2(types);
         let type2Div = checkIfType2Div(type2);
         let id = singlePokemon.id;
-
-        button.innerHTML = ''; 
-        if (search.length < 3 && search.length > 0) {
-            content.innerHTML = '';
-            break;
-        }   
-        content.innerHTML += renderPokemonHtml(originalIndex, id, type1, pokemonName, type2Div, pokemonImg);
         
-    }
-    if (search === '') {
-        loadingSpinner.style.display = 'flex';
-        offset = 0;
-        content.innerHTML = '';
-        setTimeout(() => {
-            renderPokemon();
-            loadingSpinner.style.display = 'none';
-        }, 1500); 
+        content.innerHTML += renderPokemonHtml(originalIndex, id, type1, pokemonName, type2Div, pokemonImg);
     }
 }
 
 function openEntry(i) {
     content = document.getElementById('content');
     let singlePokemon = pokemonData[i];
-    baseStats = singlePokemon.stats;
-    let pokemonName = singlePokemon.name;
-    pokemonName = capitalizeFirstLetter(pokemonName);
     let pokemonImg = singlePokemon.sprites.other["official-artwork"].front_default;
     let types = singlePokemon.types;
     let type1 = types[0].type.name;
@@ -148,10 +158,8 @@ function loadInfo(i) {
     colorButtons();
     let singlePokemon = pokemonData[i];
     let pokemonName = singlePokemon.name
-    let pokemonHeight = singlePokemon.height;
-    let pokemonWeight = singlePokemon.weight;
-    pokemonWeight = pokemonWeight / 10;
-    pokemonHeight = pokemonHeight / 10;
+    let pokemonHeight = singlePokemon.height / 10;
+    let pokemonWeight = singlePokemon.weight / 10;
     pokemonName = capitalizeFirstLetter(pokemonName);
     let types = singlePokemon.types;
     let type1 = types[0].type.name;
@@ -159,12 +167,20 @@ function loadInfo(i) {
     let type2 = checkIfType2(types);
     let type2Div = checkIfType2DivOpen(type2);
     let id = singlePokemon.id;
+    
+    updateInfoClass();
     let infos = document.getElementById('info');
-    document.getElementById('info').classList.remove('stats');
-    document.getElementById('info').classList.add('info');
-
     infos.innerHTML = '';
     infos.innerHTML = loadInfoHtml(pokemonName, id, pokemonHeight, pokemonWeight, type1, type2Div, i);
+    toggleSeparators();
+}
+
+function updateInfoClass(infos) {
+    document.getElementById('info').classList.remove('stats');
+    document.getElementById('info').classList.add('info');
+}
+
+function toggleSeparators() {
     document.getElementById('separator').classList.toggle('separator');
     document.getElementById('separator2').classList.toggle('separator2');
 }
@@ -176,7 +192,6 @@ function cry(i) {
     audio.volume = 0.05;
     audio.play();
 }
-
 
 function loadStats(i) {
     document.getElementById('info').classList.add('stats');
@@ -191,27 +206,9 @@ function loadStats(i) {
         let baseStat = baseStats[j].base_stat;
         let statName = baseStats[j].stat.name;
         statName = capitalizeFirstLetter(statName);
-        statDivs.innerHTML += `
-        <div class="stats-container">
-            <div class="stats-width">
-                ${statName}: 
-            </div>
-            <div class="stats-next-to-bar">
-                <span class="stat-span">
-                    ${baseStat}
-                </span>
-                <div class="stat-bar">
-                    <div class="full-bar">
-                        <div class="bar-percentage" style="width: ${baseStat}%;">
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-        `;
+        statDivs.innerHTML += statDivsHtml(statName, baseStat);
     }
-    document.getElementById('separator').classList.toggle('separator');
-    document.getElementById('separator2').classList.toggle('separator2');
+    toggleSeparators();
 }
 
 function colorButtons() {
@@ -248,93 +245,4 @@ function nextLeft(i) {
         i--
         openEntry(i);
     }
-}
-
-function renderPokemonHtml(i, id, type1, pokemonName, type2Div, pokemonImg) {
-    return `
-    <div class="poke-card ${type1}" onclick="openEntry(${i})">
-        <div class="poke-id">
-            <div>#${id}</div>
-        </div>
-        <div class="name-span">
-            <span>${pokemonName}</span>
-        </div>
-        <div class="lower-section">
-            <div class="types">
-                <div class="type ${type1}2">${type1}</div>
-                ${type2Div}
-            </div>
-            <img class="poke-img" src="${pokemonImg}">
-        </div>
-    </div>
-    `;       
-}
-
-function openEntryHtml(type1, pokemonImg, i) {
-    return `
-    <div id="popUp" class="large-background" onclick="closeCard()">
-        <div class="poke-card-open" onclick="event.stopPropagation()">
-            <div class="${type1} card-1st-half">
-                <button class="close-card-button" onclick="closeCard()"><b>X</b></button>
-                <img src="${pokemonImg}">
-            </div>
-            <div class="card-2nd-half">
-                <div class="card-buttons">
-                    <div id="buttonLeft" class="button-left" onclick="loadInfo(${i})">Info</div>
-                    <div id="buttonRight" class="button-right button-clicked" onclick="loadStats(${i})">Stats</div>
-                </div>
-                <div id="info" class="info"> 
-                </div>
-                <div class="arrows">
-                    <img class="arrow-left" src="./img/arrowleft.png" onclick="nextLeft(${i})">
-                    <img class="arrow-right" src="./img/arrowright.png" onclick="nextRight(${i})">
-                </div>
-                <div id="separator">
-                </div>
-                <div id="separator2">
-                </div>
-            <div>
-        </div>    
-    </div>
-    `;
-}
-
-function loadInfoHtml(pokemonName, id, pokemonHeight, pokemonWeight, type1, type2Div, i) {
-    return `
-    <div class="info-left">
-        <div class="single-info">
-            <span>Species:</span>
-            <div class="info-width">${pokemonName}</div>
-        </div>
-        <div class="single-info">
-            <span>Number:</span>
-            <div class="info-width">${id}</div>
-        </div>
-        <div class="single-info">
-            <span>Height:</span>
-            <div class="info-width">${pokemonHeight.toFixed(2).replace('.', ',') + ' '}m</div>
-        </div>
-        <div class="single-info">
-            <span>Weight:</span>
-            <div class="info-width">${pokemonWeight.toFixed(1).replace('.', ',') + ' '}kg</div>
-        </div>
-    </div>
-    <div class="info-right">
-        <div class="single-info-right">
-            <span>Type:</span>
-        </div>
-        <div class="single-info-right">
-            <div class="types-flex">
-                <div class="type-open ${type1}">${type1}</div>
-                ${type2Div}
-            </div>
-        </div>
-        <div class="single-info-right">
-            <span>Cry:</span>
-        </div>
-        <div class="single-info-right">
-            <button onclick="cry(${i})" class="sound-button"><div>Sound</div><img src="./img/sound.png"></button>
-        </div>
-    </div> 
-`;
 }
