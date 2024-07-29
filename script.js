@@ -60,6 +60,7 @@ function checkIfType2(types) {
     }
     return type2;
 }
+
 function checkIfType2Div(type2) {
     let type2Div = '';
     if (type2) {
@@ -68,6 +69,17 @@ function checkIfType2Div(type2) {
     }
     return type2Div;
 }
+
+function checkIfType2DivOpen(type2) {
+    let type2Div = '';
+    if (type2) {
+        type2 = capitalizeFirstLetter(type2);
+        type2Div = `<div class="type-open ${type2}">${type2}</div>`;
+    }
+    return type2Div;
+}
+
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -169,26 +181,110 @@ function openEntry(i) {
             </div>
             <div class="card-2nd-half">
                 <div class="card-buttons">
-                    <div class="button-left"></div>
-                    <div class="button-right"></div>
+                    <div id="buttonLeft" class="button-left" onclick="loadInfo(${i})">Info</div>
+                    <div id="buttonRight" class="button-right button-clicked" onclick="loadStats(${i})">Stats</div>
                 </div>
-                <div id="info" class="stats">
+                <div id="info" class="info">
                     
                 </div>
                 <div class="arrows">
                     <img class="arrow-left" src="./img/arrowleft.png" onclick="nextLeft(${i})">
                     <img class="arrow-right" src="./img/arrowright.png" onclick="nextRight(${i})">
                 </div>
+                <div id="separator">
+                </div>
+                <div id="separator2">
+                </div>
             <div>
         </div>    
     </div>
     
     `;
+    loadInfo(i);
+}
+function loadInfo(i) {
+    colorButtons();
+    let singlePokemon = pokemonData[i];
+    let pokemonName = singlePokemon.name
+    let pokemonHeight = singlePokemon.height;
+    let pokemonWeight = singlePokemon.weight;
+    pokemonWeight = pokemonWeight /10;
+    pokemonHeight = pokemonHeight /10;
+    pokemonName = capitalizeFirstLetter(pokemonName);
+    let types = singlePokemon.types;
+    let type1 = types[0].type.name;
+    type1 = capitalizeFirstLetter(type1);
+    let type2 = checkIfType2(types);
+    let type2Div = checkIfType2DivOpen(type2);
+    let id = singlePokemon.id;
+    let infos = document.getElementById('info');
+    document.getElementById('info').classList.remove('stats');
+    document.getElementById('info').classList.add('info');
+
+    infos.innerHTML = '';
+    infos.innerHTML = `
+        <div class="info-left">
+            <div class="single-info">
+                <span>Species:</span>
+                <div class="info-width">${pokemonName}</div>
+            </div>
+            <div class="single-info">
+                <span>Number:</span>
+                <div class="info-width">${id}</div>
+            </div>
+            <div class="single-info">
+                <span>Height:</span>
+                <div class="info-width">${pokemonHeight.toFixed(2).replace('.', ',') + ' '}m</div>
+            </div>
+            <div class="single-info">
+                <span>Weight:</span>
+                <div class="info-width">${pokemonWeight.toFixed(1).replace('.', ',') + ' '}kg</div>
+            </div>
+        </div>
+        <div class="info-right">
+            <div class="single-info">
+                <span>Type:</span>
+            </div>
+             <div class="single-info">
+                <div class="types-flex info-width">
+                    <div class="type-open ${type1}">${type1}</div>
+                    ${type2Div}
+                </div>
+            </div>
+            <div class="single-info">
+                <span>Cry:</span>
+            </div>
+            <div class="single-info">
+                <button onclick="cry(${i})" class="sound-button"><div>Sound</div><img src="./img/sound.png"></button>
+            </div>
+        </div> 
+    `;
+    document.getElementById('separator').classList.toggle('separator');
+    document.getElementById('separator2').classList.toggle('separator2');
+}
+
+function cry(i) {
+    let singlePokemon = pokemonData[i];
+    let cry = singlePokemon.cries.latest;
+    let audio = new Audio(`${cry}`);
+    audio.volume = 0.05;
+    audio.play();
+}
+
+
+function loadStats(i) {
+    document.getElementById('info').classList.add('stats');
+    document.getElementById('info').classList.remove('info');
+    let singlePokemon = pokemonData[i];
+    let baseStats = singlePokemon.stats;
+    let statDivs = document.getElementById('info');
+    statDivs.innerHTML = '';
+    colorButtons();
+
     for (let j = 0; j < baseStats.length; j++) {
-        baseStat = baseStats[j].base_stat;
-        statName = baseStats[j].stat.name;
+        let baseStat = baseStats[j].base_stat;
+        let statName = baseStats[j].stat.name;
         statName = capitalizeFirstLetter(statName);
-        let statDivs = document.getElementById('info');
         statDivs.innerHTML += `
         <div class="stats-container">
             <div class="stats-width">
@@ -208,6 +304,13 @@ function openEntry(i) {
         </div>
         `;
     }
+    document.getElementById('separator').classList.toggle('separator');
+    document.getElementById('separator2').classList.toggle('separator2');
+}
+
+function colorButtons() {
+    document.getElementById('buttonRight').classList.toggle('button-clicked');
+    document.getElementById('buttonLeft').classList.toggle('button-clicked');
 }
 
 function closeCard() {

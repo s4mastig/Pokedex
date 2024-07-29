@@ -7,21 +7,26 @@ body {
 }
 header {
     height: 120px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     background-color: #E81D26;
     margin-bottom: 16px;
     border-bottom: 10px outset rgba(0, 0, 0, 0.2);  
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2); 
     position: sticky;
     top: 0;
+    z-index: 1;
 }
-
+.header-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width:1920px;
+    margin-left:auto;
+    margin-right:auto;
+}
 h1 img{ 
     width: 240px;
 }
-header input {
+.header-content input {
   padding-left: 25px;
   background: url("./img/search.png") no-repeat left;
   background-position: 8px;
@@ -34,21 +39,26 @@ header input {
   border-radius: 40px 40px;
   border-color: #E81D26;
 }
-header input:focus {
+.header-content input:focus {
     outline-style: none;
 }
 .content {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    max-width:1920px;
+    margin-left:auto;
+    margin-right:auto;
 }
 .load-button {
     display: flex;
     justify-content: center;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 24px;
+    padding-bottom: 40px;
 }
 .load-button button {
+    font-family: "Lilita One", sans-serif;
+    font-size: 16px;
     padding: 8px 16px 8px 16px;
     border-radius: 8px 8px;
     background-color: white;
@@ -109,6 +119,7 @@ header input:focus {
     flex-direction: column;
     align-items: center;
     gap:8px;
+    letter-spacing: 0;
 }
 .large-background {
     background-color: rgba(0, 0, 0, 0.6);
@@ -147,10 +158,12 @@ header input:focus {
 }
 .card-2nd-half {
     height: 50%;
+    position: relative;
 }
 .card-buttons {
     display: flex;
-    justify-content: space-around;
+    text-shadow: none;
+    font-size: 18px;
 }
 .button-left {
     height: 40px;
@@ -158,7 +171,9 @@ header input:focus {
     border: solid; 
     border-width: 3px 2px 3px 2px;
     border-color: black;
-    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .button-right {
     height: 40px;
@@ -166,7 +181,9 @@ header input:focus {
     border: solid; 
     border-width: 3px 2px 3px 2px;
     border-color: black;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .button-left:hover {
     cursor:pointer;
@@ -175,6 +192,96 @@ header input:focus {
 .button-right:hover {
     background-color: lightgray;
     cursor: pointer;
+}
+.button-clicked {
+    background-color: lightgray;
+}
+.info {
+    display: flex;
+    width: 100%;
+}
+.info-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-shadow: none;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    margin-left: 24px;
+    width: 50%;
+}
+.info-right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-shadow: none;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    margin-left: 48px;
+    width: 50%;
+}
+.separator {
+    height: 200px;
+    width: 4px;
+    background-color: black;
+    position: absolute;
+    left: 199px;
+    top: 0;
+    
+}
+.separator2 {
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    right: 0; 
+    bottom: 80px;
+}
+.single-info {
+    display: flex;
+    align-items: space-between;
+}
+.single-info span {
+    width: 84px;
+    gap: 8p;
+}
+.info-width {
+    width: 80px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.sound-button {
+    padding: 4px 8px 4px 8px;
+    border-radius: 16px 16px;
+    transition: all;
+    background-color: lightgray;
+    display: flex;
+    gap: 8px;
+    font-family: "Lilita One", sans-serif;
+    border: none;
+    font-size: 16px;
+}
+.sound-button img {
+    padding-top: 2px;
+    padding-right: 2px;
+    height: 16px;
+}
+.sound-button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: rgb(223, 223, 223);
+}
+.types-flex {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.type-open {
+    padding: 4px 8px 4px 8px;
+    border-radius: 16px 16px;
 }
 .stats {
     display: flex;
@@ -219,6 +326,9 @@ header input:focus {
     display: flex;
     justify-content: space-around;
     margin-top: 8px;
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
 }
 .arrow-left {
     height: 30px;
@@ -226,6 +336,9 @@ header input:focus {
     padding: 8px;
     background-color: lightgray;
     border-radius: 50%;
+    transition: all;
+    margin-left: 64px;
+    margin-right: 64px;
 }   
 .arrow-right {
     height: 30px;
@@ -234,6 +347,8 @@ header input:focus {
     background-color: lightgray;
     border-radius: 50%;
     transition: all;
+    margin-left: 64px;
+    margin-right: 64px;
 }
 .arrow-left:hover {
     cursor: pointer;
@@ -381,4 +496,8 @@ header input:focus {
     100% {
         transform: rotate(360deg);
     }
+}
+
+@media(max-width: 1200px) {
+    
 }
